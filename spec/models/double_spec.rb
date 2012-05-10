@@ -87,6 +87,16 @@ module RestAssured::Models
         f4.reload.active.should be true
       end
 
+      it "sets response headers" do
+        f = Double.create valid_params.merge(:response_headers => {'Content-Type' => 'application/xml'})
+        f.response_headers['Content-Type'].should == 'application/xml'
+      end
+
+      it "discards blank response headers" do
+        f = Double.create valid_params.merge(:response_headers => {'Content-Type' => ''})
+        f.response_headers.should == {}
+      end
+
       it "handles long paths (more than 255 characters)" do
         long_path = 'a' * 260
         f1 = Double.create valid_params.merge(:fullpath => long_path)

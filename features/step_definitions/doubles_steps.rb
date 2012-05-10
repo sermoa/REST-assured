@@ -112,6 +112,17 @@ When /^I enter double details:$/ do |details|
   select  double['status'], :from => 'Status'
 end
 
+When /^I fill in content headers:$/ do |table|
+  table.raw.each do |row|
+    fill_in row[0], :with => row[1]
+  end
+end
+
+Then /^the double that was just created should have content headers:$/ do |string|
+  double = RestAssured::Models::Double.last
+  double.response_headers.should == eval(string)
+end
+
 When /^I save it$/ do
   find('input[type="submit"]').click
 end

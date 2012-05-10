@@ -34,6 +34,7 @@ module RestAssured
 
         def set_response_headers
           self.response_headers = {} unless response_headers.present?
+          self.response_headers.delete_if{|k,v| v.blank? }
         end
 
         def set_verb

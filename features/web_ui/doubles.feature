@@ -30,6 +30,22 @@ Feature: manage doubles via ui
       | fullpath      | description | verb | status |
       | /url2/bb?a=b5 | google api  | POST | 200    |
 
+  Scenario: Add a new double with content headers
+    Given I am on "doubles" page
+    When I choose to create a double
+    And I enter double details:
+      | fullpath      | description | content      | verb | status |
+      | /url2/bb?a=b5 | google api  | test content | POST | 200    |
+    And I fill in content headers:
+      | Content-Type  | application/xml         |
+      | Cache-Control | no-transform,max-age=30 |
+    And I save it
+    Then I should see "Double created"
+    And the double that was just created should have content headers:
+    """
+      {'Content-Type' => 'application/xml', 'Cache-Control' => 'no-transform,max-age=30'}
+    """
+
   @javascript
   Scenario: choose active double
     Given there are two doubles for the same fullpath

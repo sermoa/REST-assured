@@ -23,6 +23,14 @@
       %option{:name => s, :selected => ((@double.status || 200) == s)}= s
 
 %p
+  %label{:for => 'double_response_headers_content_type'} Content-Type
+  %input.wide#double_response_headers_content_type{:type => 'text', :name => 'double[response_headers][Content-Type]', :value => @double.response_headers['Content-Type']}
+
+%p
+  %label{:for => 'double_response_headers_cache_control'} Cache-Control
+  %input.wide#double_response_headers_cache_control{:type => 'text', :name => 'double[response_headers][Cache-Control]', :value => @double.response_headers['Cache-Control']}
+
+%p
   %input{:type => 'submit', :value => 'Save'}
   |
   %a{:href => 'javascript:history.back()'} back
